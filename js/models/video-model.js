@@ -12,9 +12,9 @@ app.models.Video=Backbone.Model.extend({
 	initialize: function(){
 		var self = this;
 		if (this.get('autobiography') !== ''){
-			self.set('type', 'biography');
+			self.set('type', 'Biography');
 		} else {
-			self.set('type', 'autobiography');
+			self.set('type', 'Autobiography');
 		}
 	}
 
