@@ -40,6 +40,14 @@ app.views.Videos = Backbone.View.extend({
 	initialize: function (data){
 		this.collection = new app.collections.Videos(data);
 		this.render();
+
+		this.on('change:searchFilter',this.filterBySearch, this);
+
+	this.collection.on('reset',this.render, this);
+	},
+
+	events: {
+		'keyup #searchBox': 'searchFilter'
 	},
 
 	render: function(){
@@ -55,6 +63,20 @@ app.views.Videos = Backbone.View.extend({
 			model: video
 		});
 		$('#listing').append(newvideo.render().el);
+	},
+
+	searchFilter: function(e){
+		this.searchFilter = e.target.value;
+		this.trigger('change:searchFilter');
+	},
+
+	filterBySearch: function() {
+		this.collection.reset(content, {silent: true});
+		var filterString = this.searchFilter,
+			filtered = _.filter(this.collection.models, function(item){
+				return item.get('videoname').toLowerCase().indexOf(filterString.toLowerCase()) !== -1;
+			});
+			 this.collection.reset(filtered);
 	}
 
 
