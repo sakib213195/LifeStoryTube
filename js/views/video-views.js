@@ -75,6 +75,10 @@ app.views.Videos = Backbone.View.extend({
 		return _.uniq(this.collection.pluck('type'));
 	},
 
+	setListLength: function(l) {
+		$('#count').html(l);
+	},
+
 	createFilters: function(){
 		var filters = '<a class="filter" href= "#all">All</a>';
 		_.each(this.getTypes(),function(item){
@@ -101,6 +105,7 @@ app.views.Videos = Backbone.View.extend({
 			filtered = _.filter(this.collection.models, function(item){
 				return item.get('videoname').toLowerCase().indexOf(filterString.toLowerCase()) !== -1;
 			});
+			 this.setListLength(filtered.length);
 			 this.collection.reset(filtered);
 	},
 
@@ -108,6 +113,7 @@ app.views.Videos = Backbone.View.extend({
 		if(this.filterType === 'All') {
 			this.collection.reset(content);
 			appRouter.navigate('filter/all');
+			this.setListLength(this.collection.length);
 			
 		} else {
 			this.collection.reset(content, { silent:true });
@@ -115,6 +121,7 @@ app.views.Videos = Backbone.View.extend({
 				filtered = _.filter(this.collection.models, function(item) {
 					return item.get('type') === filterType;
 				});
+			this.setListLength(filtered.length);
 			this.collection.reset(filtered);
 			appRouter.navigate('filter/' + filterType);
 			
