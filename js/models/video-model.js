@@ -4,8 +4,8 @@ app.models.Video=Backbone.Model.extend({
 	defaults: {
 		'ID': '',
 		'videoname' : '',
-		'link' : '',
 		'tag' : '',
+		'link' : '',
 		'autobiography' : ''
 	},
 

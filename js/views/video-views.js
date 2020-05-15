@@ -9,6 +9,10 @@ app.views.Video = Backbone.View.extend({
 		};
 	},
 
+	events: {
+		'click .list-header': 'showDetails'
+	},
+
 
 
 	template: _.template($('#video-template').html()),
@@ -16,7 +20,15 @@ app.views.Video = Backbone.View.extend({
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON()));
 		return this;
+	},
+
+
+	showDetails: function(e){
+		$(e.target).toggleClass('active');
+		$(e.target).siblings('.details').slideToggle('fast');
 	}
+
+
 
 });
 
